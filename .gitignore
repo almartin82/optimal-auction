@@ -20,3 +20,8 @@ vignettes/*.pdf
 
 #mac stuff
 *.DS_Store
+.Rproj.user
+
+#paid stuff
+proj_data/pecota.rds
+proj_data/pod.rds

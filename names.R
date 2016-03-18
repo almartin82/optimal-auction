@@ -1,25 +1,16 @@
+devtools::load_all(pkg = file.path('..', 'projprep'))
+
 library(magrittr)
 library(dplyr)
 
 ## NAME DISPLAY STRING
-proj1$h_final$disp_name <- paste0(
-  proj1$h_final$fullname, ' (', proj1$h_final$priority_pos, ')'
-)
+match_df <- id_map %>%
+  dplyr::filter(!is.na(mlbid))
 
-proj1$p_final$disp_name <- paste0(
-  proj1$p_final$fullname, ' (', proj1$p_final$priority_pos, ')'
-)
+match_df$disp_name <- paste0(match_df$playername, ' (', match_df$pos, ')')
 
-player_disp_name <- c(proj1$h_final$disp_name, proj1$p_final$disp_name)
+match_df <- match_df %>%
+  dplyr::select(disp_name, mlbid)
 
-
-match_fields <- . %>%
-  dplyr::select(
-    disp_name, mlbid
-  )
-
-h_fields <- match_fields(proj1$h_final)
-p_fields <- match_fields(proj1$p_final)
-match_df <- rbind(h_fields, p_fields)
-
-
+#for autocomplete
+player_disp_name <- match_df$disp_name
