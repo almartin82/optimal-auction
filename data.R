@@ -1,4 +1,3 @@
-library(ggplot2)
 
 proj_files <- list.files(path = proj_data_path)
 num_projs <- length(proj_files)
@@ -18,132 +17,95 @@ for (i in seq_along(proj_files)) {
 
 devtools::load_all(pkg = file.path('..', 'projprep'))
 
-stat_dist <- function(pp_list, stat, playerid, player_pos) {
-  this_stat <- lapply(
-    pp_list, stat_extract_all, hit_pitch = 'h', stat = stat
-  )
-  this_stat_pos <- lapply(
-    pp_list, stat_extract_pos, hit_pitch = 'h', stat = stat
-  )
-  this_stat_player <- lapply(
-    pp_list, stat_extract_player, hit_pitch = 'h', 
-    stat = stat, playerid = playerid
-  )
+stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
+  if (hit_pitch == 'h') {
+    h_stats <- c('r', 'rbi', 'sb', 'tb', 'obp')
+    this_stats_all <- lapply(
+      all_proj, stat_extract_many, hit_pitch = 'h', 
+      stat = h_stats
+    )
+    this_stat_player <- lapply(
+      pp_list, stat_extract_player, hit_pitch = 'h', 
+      stat = h_stats, playerid = playerid
+    )
+  }
 
-  full_stat_list <- lapply(seq_along(this_stat), function(i) {
-    data.frame(
-      stat = this_stat[[i]],
-      system = names(this_stat)[[i]],
+  full_stat_list <- lapply(seq_along(this_stats_all), function(i) {
+    int_df <- data.frame(
+      system = names(this_stats_all)[[i]],
+      stat1 = this_stats_all[[i]][,1],
+      stat2 = this_stats_all[[i]][,2],
+      stat3 = this_stats_all[[i]][,3],
+      stat4 = this_stats_all[[i]][,4],
+      stat5 = this_stats_all[[i]][,5],
       stringsAsFactors = FALSE
     )
+    out <- gather(int_df, stat, value, -system)
+    out
   })
   full_df <- dplyr::bind_rows(full_stat_list)
   
-  agg_stat_list <- lapply(seq_along(this_stat_pos), function(i) {
-    int_df <- data.frame(
-      pos = this_stat_pos[[i]][, 1],
-      stat = this_stat_pos[[i]][, 2],
-      system = names(this_stat_pos)[[i]],
-      stringsAsFactors = FALSE
-    )
-    names(int_df) <- c('pos', 'stat', 'system')
-    
-    int_df %>%
-      dplyr::group_by(pos, system) %>%
-      dplyr::summarise(
-        q_25 = quantile(stat, probs = 0.25),
-        q_50 = quantile(stat, probs = 0.50),
-        q_75 = quantile(stat, probs = 0.75)
-      )
-  })
-  agg_df <- dplyr::bind_rows(agg_stat_list) %>%
-    dplyr::filter(
-      pos == player_pos
-    )
-  
   player_stat_list <- lapply(seq_along(this_stat_player), function(i) {
-    data.frame(
-      stat = this_stat_player[[i]],
-      #to handle missing data
-      system = rep(names(this_stat_player)[[i]], length(this_stat_player[[i]])),
+    print(names(this_stat_player)[[i]])
+    print(this_stat_player[[i]])
+    int_df <- data.frame(
+      system = rep(
+        names(this_stat_player)[[i]], nrow(this_stat_player[[i]])),
+      stat1 = this_stat_player[[i]][,1],
+      stat2 = this_stat_player[[i]][,2],
+      stat3 = this_stat_player[[i]][,3],
+      stat4 = this_stat_player[[i]][,4],
+      stat5 = this_stat_player[[i]][,5],
       stringsAsFactors = FALSE
     )
+    out <- gather(int_df, stat, value, -system)
+    out
   })
-  player_df <- dplyr::bind_rows(player_stat_list)
-  
-  print(player_df)
-  
-  ggplot() +
+  player_stats_df <- dplyr::bind_rows(player_stat_list)
+
+  out <- ggplot() +
   geom_violin(
     data = full_df,
     aes(
       x = system,
-      y = stat
+      y = value
     ),
     scale = 'count', 
     fill = 'lightblue', 
     alpha = 0.25,
     color = 'white'
   ) +
-  geom_jitter(
-    data = full_df,
-    aes(
-      x = system,
-      y = stat
-    ),
-    width = 0.0,
-    height = 0.5,
-    alpha = 0.1,
-    shape = 3
-  ) +
-  geom_text(
-    data = agg_df,
-    aes(
-      x = system,
-      y = q_25,
-      label = '25'
-    ),
-    alpha = 0.5,
-    size = 3,
-    vjust = -1
-  ) +
-  geom_text(
-    data = agg_df,
-    aes(
-      x = system,
-      y = q_50,
-      label = '50'
-    ),
-    alpha = 0.5,
-    size = 3,
-    vjust = -1
-  ) +   
-  geom_text(
-    data = agg_df,
-    aes(
-      x = system,
-      y = q_75,
-      label = '75'
-    ),
-    alpha = 0.5,
-    size = 3,
-    vjust = -1
-  ) +
   geom_point(
-    data = player_df,
+    data = player_stats_df,
     aes(
       x = system,
-      y = stat
+      y = value
     ),
     color = 'hotpink'
   ) +
   theme_bw() +
-  labs(
-    y = stat
-  ) +
-  coord_flip()
+  facet_grid(stat ~ ., scales = "free") +
+  theme(
+    panel.grid = element_blank()
+  ) 
+    
+  out
 }
+#stat_dist_all(all_proj, 545361, 'OF')
 
-stat_dist(all_proj, 'r', 545361, 'OF')
+#   geom_jitter(
+#     data = full_df,
+#     aes(
+#       x = system,
+#       y = value
+#     ),
+#     width = 0.0,
+#     height = 0.5,
+#     color = 'gray80',
+#     alpha = 0.1,
+#     shape = 3
+#   ) +
+
+
 
 

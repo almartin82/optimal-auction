@@ -1,5 +1,7 @@
 library(shiny)
 library(devtools)
+library(ggplot2)
+library(tidyr)
 devtools::load_all(pkg = file.path('..', 'projprep'))
 
 source(file = 'constants.R')
@@ -19,30 +21,16 @@ shinyServer(function(input, output) {
   output$this_mlbid <- renderText(this_mlbid())
   
   #return stats for this mlbid
-  
-  
 
   #make plots
-  output$runs_plot <- renderPlot({
-    stat_dist(
+  output$big_plot <- renderPlot({
+    stat_dist_all(
       pp_list = all_proj, 
-      stat = 'r', 
       playerid = this_mlbid(), 
-      player_pos = 'OF'
+      player_pos = 'OF',
+      hit_pitch = 'h'
     )
   })
-
-  
   
 })
 
-
-
-#   output$distPlot <- renderPlot({
-#     # generate bins based on input$bins from ui.R
-#     x <- proj1$h_final[, 'value'] %>% unlist()
-#     bins <- seq(min(x), max(x), length.out = input$bins + 1)
-# 
-#     # draw the histogram with the specified number of bins
-#     hist(x, breaks = bins, col = 'darkgray', border = 'white')
-#   })

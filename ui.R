@@ -1,14 +1,18 @@
 library(shiny)
-
+library(tidyr)
+library(ggplot2)
 source(file = 'constants.R')
 source(file = 'data.R')
 source(file = 'names.R')
 
 shinyUI(fluidPage(
+  tags$style(
+    type = 'text/css', 
+    ".selectize-input { font-size: 12px; line-height: 12px;} .selectize-dropdown { font-size: 10px; line-height: 10px; } .well {padding: 5px;} .form-group { margin-bottom: 5px;}"
+  ),
   
   fluidRow(
-    #sidebar
-    column(4,
+    column(3,
       wellPanel(
         selectInput(
           inputId = 'in1', 
@@ -17,47 +21,21 @@ shinyUI(fluidPage(
           multiple = FALSE,
           selectize = TRUE
         )
-      )       
+      )
     ),
-    
-    #main
-    column(8, 
-      verbatimTextOutput('this_player'),
-      #verbatimTextOutput('this_mlbid'),
-      plotOutput("runs_plot")
+    column(3,
+      verbatimTextOutput('this_player')
     )
+  ),
+  
+  #row 2
+  fluidRow(
+    column(12, plotOutput('big_plot'))
   )
 ))
-# 
-# shinyUI(fluidPage(
-# 
-#   # Sidebar with a slider input for number of bins
-#   sidebarLayout(
-#     sidebarPanel(
-#       #player picker
-#       selectInput(
-#         inputId = 'in1', 
-#         label = 'Player', 
-#         choices = c(Player = '', player_disp_name), 
-#         multiple = FALSE,
-#         selectize = TRUE
-#       ),
-#       sliderInput(
-#         "bins",
-#         "Number of bins:",
-#         min = 1,
-#         max = 50,
-#         value = 30
-#       )
-#     #end sidebarPanel
-#     ),
-#     
-#     # Show a plot of the generated distribution
-#     mainPanel(
-#       verbatimTextOutput('this_player'),
-#       #verbatimTextOutput('this_mlbid'),
-#       plotOutput("runs_plot")
-#     )
-#   #end sidebarLayout
-#   )
-# ))
+
+
+# column(3, plotOutput('rbi_plot')),
+# column(3, plotOutput('sb_plot')),
+# column(3, plotOutput('tb_plot')),
+# column(4, plotOutput('obp_plot'))
