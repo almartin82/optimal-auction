@@ -106,7 +106,7 @@ stat_dist_all(all_proj, 477132, 'SP')
 
 price_table <- function(pp_list, playerid, hit_pitch) {
   this_stat_player <- lapply(
-    pp_list, stat_extract_player, hit_pitch = 'h', 
+    pp_list, stat_extract_player, hit_pitch = hit_pitch, 
     stat = 'value', playerid = playerid
   )
   
@@ -140,5 +140,6 @@ price_table <- function(pp_list, playerid, hit_pitch) {
     title = element_blank()
   )
 }
-price_table(all_proj, 545361, 'h')
+price_table(all_proj, 477132, 'p')
+#price_table(all_proj, 545361, 'h')
 
