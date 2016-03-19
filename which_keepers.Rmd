@@ -1,0 +1,168 @@
+---
+title: "which_keepers?"
+author: "Andrew Martin"
+date: "March 19, 2016"
+output: html_document
+---
+
+source the `data.R` functions to get proj system data into memory:
+```{r}
+
+source(file = 'data.R')
+
+```
+
+build a h data frame with all the prices:
+
+```{r}
+
+h_base <- match_df[match_df$hit_pitch == 'h', ]
+
+prices <- list()
+for (i in names(all_proj)) {
+  print(i)
+  int_df <- all_proj[[i]]$h_final %>% dplyr::select(mlbid, value)
+  names(int_df)[2] <- i
+  prices[[i]] <- int_df
+  
+  h_base <- h_base %>%
+    dplyr::left_join(int_df, by = 'mlbid')
+}
+
+head(h_base)
+
+```
+
+
+same for p:
+```{r}
+
+p_base <- match_df[match_df$hit_pitch == 'p', ]
+
+prices <- list()
+for (i in names(all_proj)) {
+  print(i)
+  int_df <- all_proj[[i]]$p_final %>% dplyr::select(mlbid, value)
+  names(int_df)[2] <- i
+  prices[[i]] <- int_df
+  
+  p_base <- p_base %>%
+    dplyr::left_join(int_df, by = 'mlbid')
+}
+
+head(p_base)
+
+```
+
+read in auction status
+
+```{r}
+
+auc <- read.csv(file = 'auction_status.csv', stringsAsFactors = FALSE)
+head(auc)
+
+auc_slim <- auc %>% dplyr::select(mlbid, owner_2015_EOY, keepable_price)
+names(auc_slim)[2] <- 'owner'
+```
+
+join back
+```{r}
+auc_join <- . %>%
+  left_join(auc_slim, by = 'mlbid')
+
+h_base <- h_base %>% auc_join()
+p_base <- p_base %>% auc_join()
+
+```
+
+prices
+```{r}
+
+proj_systems <- c("bp", "dc", "fp", "guru", "pod", "rz-s", "steam")
+
+for (i in proj_systems) {
+  print(i)
+  price <- h_base[, 'keepable_price'] %>% unlist() %>% unname()
+  this_val <- h_base[, i] %>% unlist() %>% unname()
+  surplus <- this_val - price
+  h_base[, ncol(h_base) + 1] <- surplus
+  names(h_base)[ncol(h_base)] <- paste0(i, '_surp')
+}
+peek(h_base)
+
+for (i in proj_systems) {
+  print(i)
+  price <- p_base[, 'keepable_price'] %>% unlist() %>% unname()
+  this_val <- p_base[, i] %>% unlist() %>% unname()
+  surplus <- this_val - price
+  p_base[, ncol(p_base) + 1] <- surplus
+  names(p_base)[ncol(p_base)] <- paste0(i, '_surp')
+}
+peek(p_base)
+
+
+
+```
+
+my best keepers under different rate stats
+```{r}
+
+for (i in proj_systems) {
+  print(i)
+  
+  mask <- names(h_base) %in% c('disp_name', 'pos', 'owner', 'keepable_price') | grepl(i, names(h_base))
+  
+  int_df <- h_base[, mask]
+  
+  alm <- int_df %>%
+    dplyr::filter(owner == 'alm')
+  
+  names(alm)[6] <- 'surplus'
+  alm <- alm %>%
+    dplyr::arrange(desc(surplus)) %>%
+    dplyr::top_n(7)
+  
+  print(alm)
+}
+
+
+for (i in proj_systems) {
+  print(i)
+  
+  mask <- names(p_base) %in% c('disp_name', 'pos', 'owner', 'keepable_price') | grepl(i, names(p_base))
+  
+  int_df <- p_base[, mask]
+  
+  alm <- int_df %>%
+    dplyr::filter(owner == 'alm')
+  
+  names(alm)[6] <- 'surplus'
+  alm <- alm %>%
+    dplyr::arrange(desc(surplus))
+  
+  print(alm)
+}
+
+
+```
+
+look at SS
+```{r}
+h_base %>%
+  filter(pos == 'SS' & !is.na(fp) &!is.na(fp_surp)) %>%
+  ungroup() %>%
+  arrange(desc(pod)) %>%
+  select(
+    disp_name, pos, bp, dc, fp, pod, keepable_price, fp_surp
+  ) %>%
+  as.data.frame()
+
+h_base %>%
+  filter(pos == 'SS' & !is.na(fp) &!is.na(fp_surp)) %>%
+  ungroup() %>%
+  arrange(desc(fp_surp)) %>%
+  select(
+    disp_name, pos, bp, dc, fp, pod, keepable_price, fp_surp
+  ) %>%
+  as.data.frame()
+```

@@ -29,6 +29,16 @@ stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
       pp_list, stat_extract_player, hit_pitch = 'h', 
       stat = h_stats, playerid = playerid
     )
+  } else if (hit_pitch == 'p') {
+    p_stats <- c('w', 'sv', 'k', 'era', 'whip')
+    this_stats_all <- lapply(
+      all_proj, stat_extract_many, hit_pitch = 'p', 
+      stat = p_stats
+    )
+    this_stat_player <- lapply(
+      pp_list, stat_extract_player, hit_pitch = 'p', 
+      stat = p_stats, playerid = playerid
+    )
   }
   
   full_stat_list <- lapply(seq_along(this_stats_all), function(i) {
@@ -91,7 +101,8 @@ stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
     
   out
 }
-stat_dist_all(all_proj, 545361, 'OF')
+stat_dist_all(all_proj, 477132, 'SP')
+#stat_dist_all(all_proj, 545361, 'OF')
 
 price_table <- function(pp_list, playerid, hit_pitch) {
   this_stat_player <- lapply(

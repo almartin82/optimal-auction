@@ -1,0 +1,336 @@
+row,player,mlbid,owner_2015_EOY,price_2015,price_2014,status_auction_2015,status_auction_2014,status_2016,keepable_price
+1,Yasmani Grandal,518735,bench,2,2,,,2 yr keeper @ 2,2
+2,Matt Carpenter,572761,bench,11,10,,Keeper,2 yr keeper @ 11,11
+3,Grégory Polanco,570256,bench,5,FA pickup,,,2 yr keeper @ 5,5
+4,Billy Burns,542993,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+5,Marcell Ozuna,542303,bench,11,FA pickup,,,2 yr keeper @ 11,11
+6,Kevin Kiermaier,595281,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+7,Joc Pederson,592626,bench,1,1,Keeper,,1 yr max keeper @ 1,1
+8,Wil Myers,571976,bench,2,5,,Keeper,2 yr keeper @ 2,2
+9,Maikel Franco,596748,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+10,Mikie Mahtook,543484,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+11,Randal Grichuk,545341,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+12,Anthony Gose,543238,bench,1,FA pickup,,,2 yr keeper @ 1,1
+13,Javier Báez,595879,bench,5,6,,,2 yr keeper @ 5,5
+14,Devin Mesoraco,519023,bench,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+15,Steven Souza Jr.,519306,bench,4,FA pickup,,,2 yr keeper @ 4,4
+16,Jordan Zimmermann,519455,bench,25,7,,Keeper,2 yr keeper @ 25,25
+17,Lance Lynn,458681,bench,9,8,,,2 yr keeper @ 9,9
+18,Kevin Gausman,592332,bench,FA pickup,4,,,$1 FA 1yr keeper,1
+19,Francisco Rodríguez,408061,bench,10,FA pickup,,,2 yr keeper @ 10,10
+20,Héctor Rondón,444468,bench,7,FA pickup,,,2 yr keeper @ 7,7
+21,Madison Bumgarner,518516,bench,23,23,Keeper,,1 yr max keeper @ 23,23
+22,Zack Greinke,425844,bench,26,17,,,2 yr keeper @ 26,26
+23,Carlos Martínez,593372,bench,5,3,,,2 yr keeper @ 5,5
+24,Joe Ross,605452,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+25,Trevor Bauer,545333,bench,4,FA pickup,,,2 yr keeper @ 4,4
+26,Andrew Cashner,488768,bench,2,10,,,2 yr keeper @ 2,2
+27,Raisel Iglesias,628452,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+28,Hunter Pence,452254,bench,7,6,,Keeper,2 yr keeper @ 7,7
+29,Devon Travis,581527,bench,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+30,Brian McCann,435263,saud,13,16,,,2 yr keeper @ 13,13
+31,Prince Fielder,425902,saud,21,49,,Keeper,2 yr keeper @ 21,21
+32,Brandon Phillips,408252,saud,FA pickup,14,,,$1 FA 1yr keeper,1
+33,Nolan Arenado,571448,saud,5,5,Keeper,,1 yr max keeper @ 5,5
+34,Francisco Lindor,596019,saud,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+35,Austin Jackson,457706,saud,1,5,,,2 yr keeper @ 1,1
+36,Carlos González,471865,saud,27,47,,,2 yr keeper @ 27,27
+37,Odubel Herrera,546318,saud,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+38,Freddie Freeman,518692,saud,32,5,,Keeper,2 yr keeper @ 32,32
+39,Rusney Castillo,628329,saud,6,FA pickup,,,2 yr keeper @ 6,6
+40,Alex Guerrero,648717,saud,FA pickup,5,,,$1 FA 1yr keeper,1
+41,Jorge Soler,624585,saud,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+42,Pablo Sandoval,467055,saud,14,23,,,2 yr keeper @ 14,14
+43,Wilson Ramos,467092,saud,1,1,,Keeper,2 yr keeper @ 1,1
+44,Alcides Escobar,444876,saud,4,FA pickup,,,2 yr keeper @ 4,4
+45,Yasmany Tomás,630111,saud,2,FA pickup,,,2 yr keeper @ 2,2
+46,Howie Kendrick,435062,saud,7,1,,,2 yr keeper @ 7,7
+47,Corey Kluber,446372,saud,9,9,Keeper,,1 yr max keeper @ 9,9
+48,Julio Teherán,527054,saud,2,2,Keeper,Keeper,Forced FA (2 yr keeper),
+49,Yordano Ventura,570649,saud,11,7,,,2 yr keeper @ 11,11
+50,Jeurys Familia,544727,saud,1,FA pickup,,,2 yr keeper @ 1,1
+51,John Axford,446099,saud,FA pickup,11,,,$1 FA 1yr keeper,1
+52,Erasmo Ramírez,541640,saud,FA pickup,1,,,$1 FA 1yr keeper,1
+53,Matt Shoemaker,533167,saud,10,FA pickup,,,2 yr keeper @ 10,10
+54,Colby Lewis,407890,saud,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+55,Chase Anderson,502624,saud,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+56,Lucas Giolito,608337,saud,1,FA pickup,,,2 yr keeper @ 1,1
+57,Yan Gomes,543228,eric,6,5,,,2 yr keeper @ 6,6
+58,Anthony Rizzo,519203,eric,16,16,Keeper,,1 yr max keeper @ 16,16
+59,José Altuve,514888,eric,41,1,,Keeper,2 yr keeper @ 41,41
+60,Kyle Seager,572122,eric,6,6,Keeper,Keeper,Forced FA (2 yr keeper),
+61,Jean Segura,516416,eric,5,1,,Keeper,2 yr keeper @ 5,5
+62,Andrew McCutchen,457705,eric,57,57,Keeper,,1 yr max keeper @ 57,57
+63,Yoenis Céspedes,493316,eric,26,9,,Keeper,2 yr keeper @ 26,26
+64,Christian Yelich,592885,eric,10,10,Keeper,,1 yr max keeper @ 10,10
+65,Kris Bryant,592178,eric,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+66,Starling Marte,516782,eric,35,1,,Keeper,2 yr keeper @ 35,35
+67,Justin Turner,457759,eric,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+68,Travis d'Arnaud,518595,eric,5,6,,,2 yr keeper @ 5,5
+69,Alex Gordon,460086,eric,15,19,,,2 yr keeper @ 15,15
+70,Johnny Cueto,456501,eric,22,1,,Keeper,2 yr keeper @ 22,22
+71,Robbie Ray,592662,eric,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+72,Ricky Nolasco,445060,eric,FA pickup,2,,,$1 FA 1yr keeper,1
+73,Trevor Rosenthal,572096,eric,1,1,Keeper,Keeper,Forced FA (2 yr keeper),
+74,Darren O'Day,503285,eric,2,1,,,2 yr keeper @ 2,2
+75,Brad Boxberger,502202,eric,9,FA pickup,,,2 yr keeper @ 9,9
+76,Aroldis Chapman,547973,eric,26,14,,,2 yr keeper @ 26,26
+77,Craig Kimbrel,518886,eric,27,25,,,2 yr keeper @ 27,27
+78,Kenley Jansen,445276,eric,8,8,Keeper,Keeper,Forced FA (2 yr keeper),
+79,David Price,456034,eric,30,25,,,2 yr keeper @ 30,30
+80,Carlos Carrasco,471911,eric,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+81,Jon Lester,452657,eric,5,5,Keeper,Keeper,Forced FA (2 yr keeper),
+82,Félix Hernández,433587,eric,30,30,Keeper,,1 yr max keeper @ 30,30
+83,Carson Smith,605476,eric,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+84,Hanley Ramírez,434670,eric,12,12,Keeper,Keeper,Forced FA (2 yr keeper),
+85,Derek Norris,519083,ptb,1,FA pickup,,,2 yr keeper @ 1,1
+86,Chris Davis,448801,ptb,3,3,Keeper,Keeper,Forced FA (2 yr keeper),
+87,Manny Machado,592518,ptb,10,15,,,2 yr keeper @ 10,10
+88,Delino DeShields,592261,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+89,Jake Marisnick,545350,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+90,Danny Valencia,502143,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+91,Edwin Encarnación,429665,ptb,46,1,,Keeper,2 yr keeper @ 46,46
+92,Evan Gattis,594828,ptb,19,2,,,2 yr keeper @ 19,19
+93,David Peralta,444482,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+94,Kendrys Morales,434778,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+95,DJ LeMahieu,518934,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+96,Michael Brantley,488726,ptb,2,2,Keeper,,1 yr max keeper @ 2,2
+97,Kelby Tomlinson,605509,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+98,Adam Conley,543045,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+99,Matt Wisler,605538,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+100,Dan Haren,429717,ptb,FA pickup,2,,,$1 FA 1yr keeper,1
+101,Zach Britton,502154,ptb,8,FA pickup,,,2 yr keeper @ 8,8
+102,Mike Morin,573046,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+103,Santiago Casilla,433586,ptb,7,FA pickup,,,2 yr keeper @ 7,7
+104,Kevin Jepsen,448178,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+105,Lance McCullers,621121,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+106,John Lackey,407793,ptb,2,FA pickup,,,2 yr keeper @ 2,2
+107,Yusmeiro Petit,433589,ptb,8,FA pickup,,,2 yr keeper @ 8,8
+108,Matt Harvey,518774,ptb,5,5,Keeper,,1 yr max keeper @ 5,5
+109,Tyson Ross,475115,ptb,12,5,,,2 yr keeper @ 12,12
+110,Marcus Stroman,573186,ptb,1,FA pickup,,,2 yr keeper @ 1,1
+111,Sonny Gray,543243,ptb,12,16,,,2 yr keeper @ 12,12
+112,Carter Capps,605169,ptb,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+113,Carlos Santana,467793,omar,21,21,Keeper,,1 yr max keeper @ 21,21
+114,Paul Goldschmidt,502671,omar,58,5,,Keeper,2 yr keeper @ 58,58
+115,Evan Longoria,446334,omar,24,48,,,2 yr keeper @ 24,24
+116,Curtis Granderson,434158,omar,1,7,,,2 yr keeper @ 1,1
+117,Jay Bruce,457803,omar,9,43,,,2 yr keeper @ 9,9
+118,Nelson Cruz,443558,omar,5,5,Keeper,,1 yr max keeper @ 5,5
+119,Álex Rodríguez,121347,omar,3,FA pickup,,,2 yr keeper @ 3,3
+120,Kolten Wong,543939,omar,11,3,,,2 yr keeper @ 11,11
+121,Adam Jones,430945,omar,39,7,,Keeper,2 yr keeper @ 39,39
+122,Robinson Canó,429664,omar,47,47,Keeper,,1 yr max keeper @ 47,47
+123,Elvis Andrus,462101,omar,15,32,,,2 yr keeper @ 15,15
+124,Jonathan Schoop,570731,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+125,Eugenio Suárez,553993,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+126,Michael A. Taylor,572191,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+127,José Reyes,408314,omar,22,22,Keeper,,1 yr max keeper @ 22,22
+128,J.P. Crawford,641487,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+129,Jace Peterson,607054,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+130,Aaron Judge,592450,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+131,Marco Estrada,462136,omar,1,8,,,2 yr keeper @ 1,1
+132,Chris Archer,502042,omar,3,3,Keeper,,1 yr max keeper @ 3,3
+133,David Robertson,502085,omar,14,14,,,2 yr keeper @ 14,14
+134,Andrew Miller,453192,omar,9,FA pickup,,,2 yr keeper @ 9,9
+135,Brad Ziegler,446899,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+136,Roberto Osuna,532077,omar,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+137,Mark Melancon,453343,omar,4,4,Keeper,,1 yr max keeper @ 4,4
+138,Garrett Richards,572070,omar,9,FA pickup,,,2 yr keeper @ 9,9
+139,Danny Salazar,517593,omar,2,20,,,2 yr keeper @ 2,2
+140,J.T. Realmuto,592663,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+141,Albert Pujols,405395,carter,18,22,,,2 yr keeper @ 18,18
+142,Daniel Murphy,502517,carter,8,7,,,2 yr keeper @ 8,8
+143,Mike Moustakas,519058,carter,FA pickup,3,,,$1 FA 1yr keeper,1
+144,Troy Tulowitzki,453064,carter,50,50,Keeper,,1 yr max keeper @ 50,50
+145,Josh Reddick,502210,carter,1,1,,,2 yr keeper @ 1,1
+146,Lorenzo Cain,456715,carter,1,FA pickup,,,2 yr keeper @ 1,1
+147,Yasiel Puig,624577,carter,57,1,,Keeper,2 yr keeper @ 57,57
+148,Rougned Odor,596059,carter,3,FA pickup,,,2 yr keeper @ 3,3
+149,Jacoby Ellsbury,453056,carter,27,33,,Keeper,2 yr keeper @ 27,27
+150,Brandon Crawford,543063,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+151,Yunel Escobar,488862,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+152,Adam Lind,452252,carter,1,2,,,2 yr keeper @ 1,1
+153,Joey Gallo,608336,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+154,Blake Swihart,596119,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+155,Trea Turner,607208,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+156,Mark Teixeira,407893,carter,FA pickup,3,,,$1 FA 1yr keeper,1
+157,José Fernández,605228,carter,22,1,,Keeper,2 yr keeper @ 22,22
+158,Héctor Santiago,502327,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+159,Henry Owens,596064,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+160,Arodys Vizcaíno,527055,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+161,Luis Severino,622663,carter,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+162,Gio González,461829,carter,8,6,,Keeper,2 yr keeper @ 8,8
+163,Drew Smyly,592767,carter,6,2,,,2 yr keeper @ 6,6
+164,Jason Hammel,434628,carter,2,FA pickup,,,2 yr keeper @ 2,2
+165,Drew Storen,519322,carter,8,FA pickup,,,2 yr keeper @ 8,8
+166,Adam Wainwright,425794,carter,21,28,,,2 yr keeper @ 21,21
+167,Miguel Montero,471083,whet,FA pickup,2,,,$1 FA 1yr keeper,1
+168,Víctor Martínez,400121,whet,7,7,Keeper,,1 yr max keeper @ 7,7
+169,Brock Holt,571788,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+170,Héctor Olivera,493343,whet,1,FA pickup,,,2 yr keeper @ 1,1
+171,Carlos Correa,621043,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+172,Corey Dickerson,572816,whet,1,1,Keeper,,1 yr max keeper @ 1,1
+173,Jason Heyward,518792,whet,23,12,,Keeper,2 yr keeper @ 23,23
+174,Chris Carter,474892,whet,5,5,Keeper,,1 yr max keeper @ 5,5
+175,Socrates Brito,593647,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+176,Stephen Piscotty,572039,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+177,Michael Conforto,624424,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+178,Ian Kinsler,435079,whet,28,30,,,2 yr keeper @ 28,28
+179,Jhonny Peralta,425509,whet,1,1,,,2 yr keeper @ 1,1
+180,Yadier Molina,425877,whet,5,4,,Keeper,2 yr keeper @ 5,5
+181,Jaime García,448802,whet,3,FA pickup,,,2 yr keeper @ 3,3
+182,Collin McHugh,543521,whet,5,FA pickup,,,2 yr keeper @ 5,5
+183,Tyler Clippard,461325,whet,10,3,,,2 yr keeper @ 10,10
+184,Alex Wilson,543935,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+185,Frankie Montás,593423,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+186,Drew Pomeranz,519141,whet,1,FA pickup,,,2 yr keeper @ 1,1
+187,Keone Kela,605309,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+188,Jairo Díaz,545064,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+189,Carlos Rodon,607074,whet,4,FA pickup,,,2 yr keeper @ 4,4
+190,Mike Fiers,571666,whet,9,FA pickup,,,2 yr keeper @ 9,9
+191,Scott Kazmir,431148,whet,1,10,,,2 yr keeper @ 1,1
+192,Taijuan Walker,592836,whet,2,8,,,2 yr keeper @ 2,2
+193,Julio Urías,628711,whet,2,FA pickup,,,2 yr keeper @ 2,2
+194,Joe Panik,605412,whet,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+195,Jung-ho Kang,628356,whet,2,FA pickup,,,2 yr keeper @ 2,2
+196,Jonathan Lucroy,518960,alm,10,10,Keeper,,1 yr max keeper @ 10,10
+197,David Ortiz,120074,alm,8,8,Keeper,Keeper,Forced FA (2 yr keeper),
+198,Dee Gordon,543829,alm,1,1,Keeper,,1 yr max keeper @ 1,1
+199,David Wright,431151,alm,13,41,,,2 yr keeper @ 13,13
+200,Ian Desmond,435622,alm,36,1,,Keeper,2 yr keeper @ 36,36
+201,Mike Trout,545361,alm,92,2,,Keeper,2 yr keeper @ 92,92
+202,Jackie Bradley Jr.,598265,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+203,Ryan Braun,460075,alm,46,52,,,2 yr keeper @ 46,46
+204,José Abreu,547989,alm,25,25,Keeper,,1 yr max keeper @ 25,25
+205,Dustin Pedroia,456030,alm,18,51,,,2 yr keeper @ 18,18
+206,Stephen Vogt,519390,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+207,Pedro Álvarez,476883,alm,2,9,,,2 yr keeper @ 2,2
+208,Adam Eaton,594809,alm,3,2,,Keeper,2 yr keeper @ 3,3
+209,Jarrod Saltalamacchia,457454,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+210,Matt Duffy,622110,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+211,Chris Sale,519242,alm,39,33,,,2 yr keeper @ 39,39
+212,Max Scherzer,453286,alm,19,19,Keeper,Keeper,Forced FA (2 yr keeper),
+213,Masahiro Tanaka,547888,alm,25,15,,,2 yr keeper @ 25,25
+214,Tony Watson,453265,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+215,Kelvin Herrera,516969,alm,FA pickup,1,,,$1 FA 1yr keeper,1
+216,Stephen Strasburg,544931,alm,36,34,,,2 yr keeper @ 36,36
+217,Patrick Corbin,571578,alm,FA pickup,1,,,$1 FA 1yr keeper,1
+218,Taylor Jungmann,543380,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+219,Cole Hamels,430935,alm,22,22,,,2 yr keeper @ 22,22
+220,Edinson Vólquez,450172,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+221,James Shields,448306,alm,16,11,,Keeper,2 yr keeper @ 16,16
+222,Nathan Karns,501992,alm,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+223,Giancarlo Stanton,519317,alm,60,60,Keeper,,1 yr max keeper @ 60,60
+224,Salvador Pérez,521692,mintz,8,7,,,2 yr keeper @ 8,8
+225,Todd Frazier,453943,mintz,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+226,Brian Dozier,572821,mintz,2,2,Keeper,,1 yr max keeper @ 2,2
+227,Miguel Sano,593934,mintz,3,3,Keeper,,1 yr max keeper @ 3,3
+228,Didi Gregorius,544369,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+229,Ben Zobrist,450314,mintz,18,42,,,2 yr keeper @ 18,18
+230,Kole Calhoun,594777,mintz,12,6,,,2 yr keeper @ 12,12
+231,J.D. Martínez,502110,mintz,5,FA pickup,,,2 yr keeper @ 5,5
+232,Greg Bird,595885,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+233,Justin Upton,457708,mintz,23,31,,,2 yr keeper @ 23,23
+234,Matt Holliday,407812,mintz,17,30,,,2 yr keeper @ 17,17
+235,Brett Gardner,458731,mintz,6,6,,,2 yr keeper @ 6,6
+236,Gerardo Parra,467827,mintz,FA pickup,1,,,$1 FA 1yr keeper,1
+237,Billy Butler,456714,mintz,5,11,,,2 yr keeper @ 5,5
+238,Michael Wacha,608379,mintz,10,12,,,2 yr keeper @ 10,10
+239,Justin Verlander,434378,mintz,6,32,,,2 yr keeper @ 6,6
+240,Alex Wood,622072,mintz,6,6,Keeper,,1 yr max keeper @ 6,6
+241,Dellin Betances,476454,mintz,9,FA pickup,,,2 yr keeper @ 9,9
+242,Steve Cishek,518553,mintz,16,10,,,2 yr keeper @ 16,16
+243,Sean Doolittle,448281,mintz,10,FA pickup,,,2 yr keeper @ 10,10
+244,Iván Nova,467100,mintz,FA pickup,1,,,$1 FA 1yr keeper,1
+245,Michael Pineda,501381,mintz,3,3,Keeper,,1 yr max keeper @ 3,3
+246,Mike Leake,502190,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+247,Jon Gray,592351,mintz,FA pickup,1,,,$1 FA 1yr keeper,1
+248,Tyler Glasnow,607192,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+249,Mark Appel,571446,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+250,Wei-Yin Chen,612672,mintz,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+251,Alex Cobb,502171,mintz,8,2,,Keeper,2 yr keeper @ 8,8
+252,John Jaso,444379,czap,1,2,,,2 yr keeper @ 1,1
+253,Addison Russell,608365,czap,1,FA pickup,,,2 yr keeper @ 1,1
+254,Xander Bogaerts,593428,czap,22,1,,Keeper,2 yr keeper @ 22,22
+255,Corey Seager,608369,czap,2,FA pickup,,,2 yr keeper @ 2,2
+256,Mookie Betts,605141,czap,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+257,A.J. Pollock,572041,czap,2,FA pickup,,,2 yr keeper @ 2,2
+258,George Springer,543807,czap,8,8,Keeper,,1 yr max keeper @ 8,8
+259,Eric Hosmer,543333,czap,15,9,,Keeper,2 yr keeper @ 15,15
+260,Lucas Duda,446263,czap,7,FA pickup,,,2 yr keeper @ 7,7
+261,Bryce Harper,547180,czap,35,47,,,2 yr keeper @ 35,35
+262,Anthony Rendón,543685,czap,1,1,Keeper,,1 yr max keeper @ 1,1
+263,Jayson Werth,150029,czap,6,6,Keeper,Keeper,Forced FA (2 yr keeper),
+264,Byron Buxton,621439,czap,5,6,,,2 yr keeper @ 5,5
+265,Daniel Norris,596057,czap,1,FA pickup,,,2 yr keeper @ 1,1
+266,J.A. Happ,457918,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+267,Ken Giles,571704,czap,10,FA pickup,,,2 yr keeper @ 10,10
+268,Tom Wilhelmsen,452666,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+269,Wade Davis,451584,czap,5,FA pickup,,,2 yr keeper @ 5,5
+270,Tanner Roark,543699,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+271,Chris Bassitt,605135,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+272,David Buchanan,571527,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+273,Noah Syndergaard,592789,czap,1,1,Keeper,,1 yr max keeper @ 1,1
+274,Andrew Heaney,571760,czap,1,FA pickup,,,2 yr keeper @ 1,1
+275,Steven Matz,571927,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+276,Aaron Nola,605400,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+277,José Berrios,621244,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+278,César Hernández,514917,czap,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+279,Russell Martin,431145,mcard,12,FA pickup,,,2 yr keeper @ 12,12
+280,Joey Votto,458015,mcard,50,58,,,2 yr keeper @ 50,50
+281,Jason Kipnis,543401,mcard,30,5,,Keeper,2 yr keeper @ 30,30
+282,Adrián Béltre,134181,mcard,41,40,,,2 yr keeper @ 41,41
+283,Ketel Marte,606466,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+284,Shin-soo Choo,425783,mcard,17,24,,Keeper,2 yr keeper @ 17,17
+285,José Bautista,430832,mcard,43,43,Keeper,,1 yr max keeper @ 43,43
+286,Charlie Blackmon,453568,mcard,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+287,Miguel Cabrera,408234,mcard,75,84,,,2 yr keeper @ 75,75
+288,Kevin Pillar,607680,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+289,Jarrett Parker,592620,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+290,Kyle Schwarber,656941,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+291,Francisco Cervelli,465041,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+292,Neil Walker,435522,mcard,10,1,,,2 yr keeper @ 10,10
+293,Jake Arrieta,453562,mcard,1,FA pickup,Keeper,,Forced FA (1 yr FA),
+294,Jacob deGrom,594798,mcard,17,FA pickup,,,2 yr keeper @ 17,17
+295,Clayton Kershaw,477132,mcard,45,45,Keeper,,1 yr max keeper @ 45,45
+296,Shawn Tolleson,474521,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+297,Robbie Ross Jr.,543726,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+298,A.J. Ramos,573109,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+299,Luke Gregerson,502381,mcard,7,1,,,2 yr keeper @ 7,7
+300,Neftali Feliz,491703,mcard,8,5,,,2 yr keeper @ 8,8
+301,Cody Allen,592102,mcard,2,2,Keeper,,1 yr max keeper @ 2,2
+302,Glen Perkins,450282,mcard,14,1,,Keeper,2 yr keeper @ 14,14
+303,Vidal Nuño,573064,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+304,Chris Tillman,501957,mcard,FA pickup,3,,,$1 FA 1yr keeper,1
+305,Jorge López,605347,mcard,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+306,Buster Posey,457763,mo,46,39,,,2 yr keeper @ 46,46
+307,Adrián González,408236,mo,43,25,,,2 yr keeper @ 43,43
+308,Logan Forsythe,523253,mo,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+309,Josh Donaldson,518626,mo,49,1,,Keeper,2 yr keeper @ 49,49
+310,Starlin Castro,516770,mo,16,10,,,2 yr keeper @ 16,16
+311,Matt Kemp,461314,mo,18,27,,,2 yr keeper @ 18,18
+312,Brandon Belt,474832,mo,1,10,,,2 yr keeper @ 1,1
+313,Nick Markakis,455976,mo,1,2,,,2 yr keeper @ 1,1
+314,Melky Cabrera,466320,mo,7,1,,,2 yr keeper @ 7,7
+315,Ben Revere,519184,mo,2,2,Keeper,,1 yr max keeper @ 2,2
+316,Khris Davis,501981,mo,1,5,,,2 yr keeper @ 1,1
+317,Ángel Pagán,434636,mo,FA pickup,1,,,$1 FA 1yr keeper,1
+318,Justin Bour,571506,mo,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+319,Eddie Rosario,592696,mo,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+320,Marcus Semien,543760,mo,2,FA pickup,,,2 yr keeper @ 2,2
+321,Dexter Fowler,451594,mo,1,1,,,2 yr keeper @ 1,1
+322,Wade Miley,489119,mo,1,FA pickup,,,2 yr keeper @ 1,1
+323,Shelby Miller,571946,mo,2,16,,,2 yr keeper @ 2,2
+324,Matt Moore,519043,mo,FA pickup,10,,,$1 FA 1yr keeper,1
+325,Sergio Romo,489265,mo,4,3,,Keeper,2 yr keeper @ 4,4
+326,Bartolo Colón,112526,mo,FA pickup,3,,,$1 FA 1yr keeper,1
+327,Dallas Keuchel,572971,mo,2,FA pickup,,,2 yr keeper @ 2,2
+328,Hisashi Iwakuma,547874,mo,1,1,Keeper,Keeper,Forced FA (2 yr keeper),
+329,Francisco Liriano,434538,mo,6,9,,,2 yr keeper @ 6,6
+330,Ian Kennedy,453178,mo,8,8,,,2 yr keeper @ 8,8
+331,Jake Odorizzi,543606,mo,2,FA pickup,,,2 yr keeper @ 2,2
+332,Jerad Eickhoff,595191,mo,FA pickup,FA pickup,,,$1 FA 1yr keeper,1
+333,,,,,,,,,
+334,,,,,,,,,
+335,,,,,,,,,
