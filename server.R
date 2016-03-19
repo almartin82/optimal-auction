@@ -32,10 +32,18 @@ shinyServer(function(input, output) {
       playerid = this_mlbid(), 
       player_pos = 'OF',
       hit_pitch = 'h'
-    )
-  })
+    )}
+  )
   
   #price grid
+  output$price_plot <- renderPlot({
+    price_table(
+      pp_list = all_proj, 
+      playerid = this_mlbid(), 
+      hit_pitch = 'h'
+    )},
+  height = 80
+  )
   
 
 })

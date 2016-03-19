@@ -31,6 +31,16 @@ shinyUI(fluidPage(
   
   #row 2
   fluidRow(
+    column(12,
+      div(
+        style = "height:80px;", 
+        plotOutput('price_plot')
+      )
+    )
+  ),
+  
+  #row 3
+  fluidRow(
     column(12, plotOutput('big_plot'))
   )
 ))
