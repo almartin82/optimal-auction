@@ -11,18 +11,21 @@ source(file = 'names.R')
 
 shinyServer(function(input, output) {
 
-  #name of the player selected for auction
-  output$this_player <- renderText(input$in1)
-  
-  #playerid
+  #reactive constants
   this_mlbid <- reactive(find_mlbid(input$in1, match_df))
+  this_hit_pitch <- reactive(
+    find_name_metadata(this_mlbid(), match_df, 'hit_pitch')
+  )
   
-  #look up player selected and return id
+  #render reactive fields as text
+  output$this_player <- renderText(input$in1)
   output$this_mlbid <- renderText(this_mlbid())
+  output$this_hit_pitch <- renderText(this_hit_pitch())
   
-  #return stats for this mlbid
+  #TODO: return stats for this mlbid
 
-  #make plots
+  #PLOTS
+  #stat dist
   output$big_plot <- renderPlot({
     stat_dist_all(
       pp_list = all_proj, 
@@ -32,5 +35,8 @@ shinyServer(function(input, output) {
     )
   })
   
+  #price grid
+  
+
 })
 

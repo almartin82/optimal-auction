@@ -46,8 +46,6 @@ stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
   full_df <- dplyr::bind_rows(full_stat_list)
   
   player_stat_list <- lapply(seq_along(this_stat_player), function(i) {
-    print(names(this_stat_player)[[i]])
-    print(this_stat_player[[i]])
     int_df <- data.frame(
       system = rep(
         names(this_stat_player)[[i]], nrow(this_stat_player[[i]])),
@@ -92,20 +90,3 @@ stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
   out
 }
 #stat_dist_all(all_proj, 545361, 'OF')
-
-#   geom_jitter(
-#     data = full_df,
-#     aes(
-#       x = system,
-#       y = value
-#     ),
-#     width = 0.0,
-#     height = 0.5,
-#     color = 'gray80',
-#     alpha = 0.1,
-#     shape = 3
-#   ) +
-
-
-
-

@@ -24,7 +24,8 @@ shinyUI(fluidPage(
       )
     ),
     column(3,
-      verbatimTextOutput('this_player')
+      verbatimTextOutput('this_player'),
+      verbatimTextOutput('this_hit_pitch')
     )
   ),
   
