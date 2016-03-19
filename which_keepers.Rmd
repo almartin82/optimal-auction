@@ -120,7 +120,7 @@ for (i in proj_systems) {
   names(alm)[6] <- 'surplus'
   alm <- alm %>%
     dplyr::arrange(desc(surplus)) %>%
-    dplyr::top_n(7)
+    dplyr::top_n(10)
   
   print(alm)
 }
@@ -158,7 +158,7 @@ h_base %>%
   as.data.frame()
 
 h_base %>%
-  filter(pos == 'SS' & !is.na(fp) &!is.na(fp_surp)) %>%
+  filter(pos == 'OF' & !is.na(fp) &!is.na(fp_surp)) %>%
   ungroup() %>%
   arrange(desc(fp_surp)) %>%
   select(
