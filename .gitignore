@@ -26,3 +26,6 @@ vignettes/*.pdf
 proj_data/pecota.rds
 proj_data/pod.rds
 proj_data/bp.rds
+
+of.csv
+ss.csv

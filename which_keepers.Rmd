@@ -153,7 +153,7 @@ h_base %>%
   ungroup() %>%
   arrange(desc(pod)) %>%
   select(
-    disp_name, pos, bp, dc, fp, pod, keepable_price, fp_surp
+    disp_name, pos, bp, dc, fp, pod, steamer, keepable_price, fp_surp
   ) %>%
   as.data.frame()
 
@@ -162,7 +162,7 @@ h_base %>%
   ungroup() %>%
   arrange(desc(fp_surp)) %>%
   select(
-    disp_name, pos, bp, dc, fp, pod, keepable_price, fp_surp
+    disp_name, pos, bp, dc, fp, pod, steam, keepable_price, fp_surp
   ) %>%
   as.data.frame()
 ```
