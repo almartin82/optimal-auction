@@ -1,0 +1,236 @@
+---
+title: "optim"
+author: "Andrew Martin"
+date: "3/22/2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(stats) # normally loaded
+
+eurodistmat <- as.matrix(eurodist)
+
+distance <- function(sq) {  # Target function
+    sq2 <- embed(sq, 2)
+    sum(eurodistmat[cbind(sq2[,2], sq2[,1])])
+}
+
+genseq <- function(sq) {  # Generate new candidate sequence
+    idx <- seq(2, NROW(eurodistmat)-1)
+    changepoints <- sample(idx, size = 2, replace = FALSE)
+    tmp <- sq[changepoints[1]]
+    sq[changepoints[1]] <- sq[changepoints[2]]
+    sq[changepoints[2]] <- tmp
+    sq
+}
+
+sq <- c(1:nrow(eurodistmat), 1)  # Initial sequence: alphabetic
+distance(sq)
+# rotate for conventional orientation
+loc <- -cmdscale(eurodist, add = TRUE)$points
+x <- loc[,1]; y <- loc[,2]
+s <- seq_len(nrow(eurodistmat))
+tspinit <- loc[sq,]
+
+plot(x, y, type = "n", asp = 1, xlab = "", ylab = "",
+     main = "initial solution of traveling salesman problem", axes = FALSE)
+arrows(tspinit[s,1], tspinit[s,2], tspinit[s+1,1], tspinit[s+1,2],
+       angle = 10, col = "green")
+text(x, y, labels(eurodist), cex = 0.8)
+
+set.seed(123) # chosen to get a good soln relatively quickly
+
+res <- optim(
+  par = sq, 
+  fn = distance, 
+  gr = genseq, 
+  method = "SANN",
+  control = list(maxit = 30000, temp = 2000, trace = TRUE, REPORT = 500)
+)
+res  # Near optimum distance around 12842
+
+
+```
+
+source the `data.R` functions to get proj system data into memory:
+```{r}
+source(file = 'constants.R')
+source(file = 'data.R')
+
+```
+
+
+```{r}
+
+
+steamer <- all_proj$steam$h_final
+steamer$final_zsum <- steamer$final_zsum * -1
+
+steamer$rn <- row.names(steamer)
+#my_team <- c(454560, 276055, 457787, 488703, 502003)
+my_team <- c(1, 10, 169, 314, 576)
+
+# steamer %>%
+#   filter(mlbid %in% my_team) %>%
+#   print.AsIs()
+
+names(my_team) <- c('C', '1B', '2B', 'SS', '3B' )
+
+eval_team <- function(team_vector) {
+  #get matching ids
+  this_team <- steamer %>%
+    filter(rn %in% team_vector) 
+  
+  #how to score?
+  score <- this_team %>% pull(final_zsum)
+  
+  sum(score) 
+}
+
+change_team <- function(tv) {
+  #pick a position to change
+  random_player <-  sample(tv, size = 1)
+  to_change <- names(random_player)
+
+  #players matching the position
+  pos_pool <- steamer %>%
+    filter(priority_pos == to_change) %>%
+    pull(rn)
+
+  #replace the position to change
+  new_player <- sample(pos_pool, 1)
+  tv[to_change] <- new_player
+  
+  as.numeric(tv)
+}
+
+best <- optim(
+  par = my_team,
+  fn = eval_team,
+  gr = change_team,
+  #control = list(fnscale = -10, trace = 1, maxit = 1000)
+  method = "SANN",
+  control = list(maxit = 30000, temp = 2000, trace = TRUE, REPORT = 500)
+)
+
+best
+best$par
+
+best$message
+
+steamer %>%
+  filter(rn %in% best$par) %>%
+  select(rn, fullname, priority_pos, ab, r, rbi, sb, tb, obp) %>%
+  print.AsIs()
+
+```
+
+that's the wrong optimization approach above.  this is actually a mixed-integer linear programming problem
+
+```{r}
+
+library(lpSolveAPI)
+
+```
+
+lets imagine 3 players across 2 roster spots
+```{r}
+
+num_players <- 3
+num_roster <- 2
+
+```
+
+the constraints are as follows:
+- each player can only occupy one roster spot (1 constraint per player)
+- each roster spot can only have one player (1 constraint per roster)
+
+```{r}
+
+player_appears_once <- num_players
+roster_used_once <- num_roster
+
+num_constraints <- player_appears_once + roster_used_once
+
+best <- make.lp(0,  num_players * num_roster)
+
+best
+```
+
+I interpret the 6 variables to be a combination of each player/roster pair.
+First let's add the constraint on each player.  In this reading, C1 and C2 relate to player 1, C3 and C4 to player 2, C5 and C6 to player 3.
+
+```{r}
+
+add.constraint(best, c(1, 1, 0, 0, 0, 0), type = '<=', rhs = 1)
+add.constraint(best, c(0, 0, 1, 1, 0, 0), type = '<=', rhs = 1)
+add.constraint(best, c(0, 0, 0, 0, 1, 1), type = '<=', rhs = 1)
+
+best
+```
+
+Then let's add the constraint on each roster spot. 
+In interpret C1:C3 as relating to roster 1.  C4:C6 relate to roster spot 2.
+
+```{r}
+
+add.constraint(best, c(1, 0, 1, 0, 1, 0), type = '=', rhs = 1)
+add.constraint(best, c(0, 1, 0, 1, 0, 1), type = '=', rhs = 1)
+
+best
+```
+
+We know that in this interpretation the values can only be 0 or 1.  So we can set the upper bound to 1.
+
+```{r}
+
+set.bounds(best, upper = c(1, 1, 1, 1, 1, 1))
+
+best
+```
+
+The objective function will be the value of the players at each of the positions
+
+```{r}
+all_proj$steam$h_final %>% arrange(-final_zsum) %>% head() %>% select(fullname, priority_pos, unadjusted_zsum)
+#trout, altuve, goldschmidt
+
+set.objfn(best, c(11,11,8.7,8.7,8.19,8.19))
+
+best
+
+```
+
+We want to maximize value
+
+```{r}
+lp.control(best, sense="max")
+
+best
+```
+
+```{r}
+
+solve(best)
+get.objective(best)
+get.variables(best)
+```
+
+Ok, so we have an optimal solution!
+Recall that our variables map to players.  C1:C2 is player 1, C3:C4 is player 2, C5:C6 is player 3.
+So we interpret that as:
+Optimal solution is 
+-player 1 and player 2
+-for player 1, roster slot 1.
+-for player 2, roster slot 2.
+
+That matches what we think should happen!
+
+

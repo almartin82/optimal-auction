@@ -1,0 +1,81 @@
+---
+title: "optim_stat"
+author: "Andrew Martin"
+date: "3/27/2018"
+output: html_document
+---
+
+source `constants.R` and `data.R` functions to get proj system data into memory:
+```{r}
+source(file = 'constants.R')
+source(file = 'data.R')
+
+```
+
+```{r}
+library(tidyverse)
+
+```
+
+We want to re-run optim2.Rmd, but instead of aggregating the zscores, include the individual zscores per player.
+
+```{r}
+
+player_univ <- all_proj$steam$h_final %>% 
+  arrange(-final_zsum) %>% 
+  dplyr::top_n(10, wt = final_zsum)
+  
+num_players <- nrow(player_univ)
+roster_names <- c("C", "1B", "2B")
+num_roster <- 3
+num_stat <- 5
+
+best <- make.lp(0,  num_players * num_roster * num_stat)
+
+best
+
+```
+
+We need to define the variables to make this model interpretable.
+
+We'll use the order
+player-stat-position
+
+```{r}
+
+player_vars <- map(
+  player_univ$mlbid, 
+  function(.x) rep(.x, num_stat * num_roster)
+) %>% 
+reduce(c)
+
+stat_vars <- rep(all_proj$steam$h_final[9:13] %>% names(), num_players * num_roster)
+
+pos_base <- map(
+  seq(1:num_roster), 
+  function(.x) rep(.x, num_stat)
+) %>% 
+reduce(c)
+
+pos_vars <- rep(pos_base, num_players)
+
+player_vars
+stat_vars
+pos_vars
+
+full_vars <- paste(player_vars, stat_vars, pos_vars, sep = '_')
+full_vars
+
+```
+
+Add constraints
+
+First add the player constraints.
+No player can be in more than one position
+```{r}
+
+
+
+```
+
+

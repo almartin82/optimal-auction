@@ -101,7 +101,7 @@ stat_dist_all <- function(pp_list, playerid, player_pos, hit_pitch = 'h') {
     
   out
 }
-stat_dist_all(all_proj, 477132, 'SP')
+#stat_dist_all(all_proj, 477132, 'SP')
 #stat_dist_all(all_proj, 545361, 'OF')
 
 price_table <- function(pp_list, playerid, hit_pitch) {
@@ -140,6 +140,6 @@ price_table <- function(pp_list, playerid, hit_pitch) {
     title = element_blank()
   )
 }
-price_table(all_proj, 477132, 'p')
+#price_table(all_proj, 477132, 'p')
 #price_table(all_proj, 545361, 'h')
 

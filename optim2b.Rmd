@@ -1,0 +1,153 @@
+---
+title: "optim_stat"
+author: "Andrew Martin"
+date: "3/27/2018"
+output: html_document
+---
+
+source `constants.R` and `data.R` functions to get proj system data into memory:
+```{r}
+source(file = 'constants.R')
+source(file = 'data.R')
+
+```
+
+```{r}
+library(tidyverse)
+library(lpSolveAPI)
+
+```
+
+We want to re-run optim.Rmd, but instead of aggregating the zscores, include the individual zscores per player.
+
+```{r}
+
+player_univ <- all_proj$steam$h_final %>% 
+  arrange(-final_zsum) %>% 
+  dplyr::top_n(10, wt = final_zsum)
+  
+num_players <- nrow(player_univ)
+roster_names <- c("C", "1B", "2B")
+num_roster <- 3
+
+#best <- make.lp(0,  (num_players * num_roster) + num_stat)
+best <- make.lp(0,  num_players * num_roster)
+
+best
+
+```
+
+We need to define the variables to make this model interpretable.
+
+We'll use the order
+player-stat-position
+
+```{r}
+
+player_vars <- map(
+  player_univ$mlbid, 
+  function(.x) rep(.x, num_roster)
+) %>% 
+reduce(c)
+
+pos_vars <- rep(roster_names, num_players)
+
+player_vars
+pos_vars
+
+full_vars <- paste(player_vars, pos_vars, sep = '_')
+price_vars <- paste0(player_univ$mlbid, '_price')
+
+final_vars <- c(full_vars, price_vars)
+final_vars
+```
+
+Add constraints
+
+First add the player constraints.
+No player can be in more than one position.
+
+```{r}
+
+for (i in seq(1:num_players)) {
+  this_id <- player_univ$mlbid[i]
+  this_player <- player_univ[player_univ$mlbid == this_id, ]$fullname
+  print(this_player)
+  
+  add.constraint(
+    lprec = best, 
+    xt = rep(1, num_roster),
+    type = "<=",
+    rhs = 1,
+    indices = which(player_vars %in% this_id)
+  )
+}
+
+best
+```
+
+Next add roster constraints.
+No position can have more than one player.
+
+```{r}
+
+for (i in seq(1:num_roster)) {
+  this_pos <- roster_names[i]
+  print(this_pos)
+  
+  add.constraint(
+    lprec = best, 
+    xt = rep(1, num_players),
+    type = "<=",
+    rhs = 1,
+    indices = which(pos_vars %in% this_pos)
+  )
+}
+
+best
+
+```
+
+The objective function will be the value of the players at each of the positions
+
+```{r}
+
+player_value <- player_univ$unadjusted_zsum
+
+player_value <- map(
+  player_value, 
+  function(.x) rep(.x, num_roster)
+) %>% 
+reduce(c)
+
+set.objfn(best, player_value)
+
+best
+
+
+```
+
+Pad the objective function with zero for price dummies
+
+```{r}
+#pad with zeros for price dummies
+player_value
+
+```
+
+
+We want to maximize value
+
+```{r}
+lp.control(best, sense="max")
+
+best
+```
+
+```{r}
+
+solve(best)
+get.objective(best)
+get.variables(best)
+```
+
