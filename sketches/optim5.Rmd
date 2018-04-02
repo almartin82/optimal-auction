@@ -1,0 +1,365 @@
+---
+title: "optim_stat"
+author: "Andrew Martin"
+date: "3/27/2018"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+source `constants.R` and `data.R` functions to get proj system data into memory:
+
+```{r}
+
+source(file = 'constants.R')
+source(file = 'data.R')
+
+```
+
+```{r}
+
+library(tidyverse)
+library(lpSolveAPI)
+
+```
+
+Building on optim4 - adding in the second-layer player constraints for multi-elig players.
+
+Instead of generating the model right up front, like I did in 2 and 3, do it later, after we know position eligibility.
+
+```{r}
+
+player_univ <- all_proj$steam$h_final %>% 
+  arrange(-final_zsum) %>% 
+  dplyr::top_n(50, wt = final_zsum)
+  
+num_players <- nrow(player_univ)
+# roster_names <- c("C", "1B", "2B", "SS", "3B", "OF", "OF", "OF")
+# num_roster <- 8
+
+roster_names <- c("C", "1B", "2B", "SS", "3B", "OF")
+num_roster <- 6
+
+num_stat <- 5
+stat_names <- c('r', 'rbi', 'sb', 'tb', 'obp')
+
+multipos_players <- player_univ %>%
+  filter(grepl(',', position, fixed = TRUE))
+
+multipos_players
+```
+
+We need to define the variables to make this model interpretable.
+
+We'll use the order
+player-position-stat
+
+```{r}
+
+player_only <- list()
+pos_only <- list()
+player_pos <- list()
+player_pos_stat <- list()
+
+for (i in 1:nrow(player_univ)) {
+  this_row <- player_univ[i, ]
+  this_pos <- strsplit(this_row$position, ', ')[[1]]
+  this_player_pos <- paste(this_row$mlbid, this_pos, sep = '_')
+  this_player_pos_stat <- map(
+    this_player_pos, 
+    function(.x) paste(.x, stat_names, sep = '_')
+  ) %>% reduce(c)
+  
+  player_only[[i]] <- rep(this_row$mlbid, length(this_player_pos_stat))
+  pos_only[[i]] <- gsub(
+    "(\\d+)([[:punct:]]+)([[:alnum:]]+)(.+)", 
+    "\\3", 
+    this_player_pos_stat
+  )
+  player_pos[[i]] <- gsub(
+    "(\\d+)([[:punct:]]+)([[:alnum:]]+)(.+)", 
+    "\\1\\2\\3", 
+    this_player_pos_stat
+  )
+  player_pos_stat[[i]] <- this_player_pos_stat
+
+}
+
+player_only <- player_only %>% reduce(c)
+pos_only <- pos_only %>% reduce(c)
+player_pos <- player_pos %>% reduce(c)
+player_pos_stat <- player_pos_stat %>% reduce(c)
+player_pos
+player_pos_stat
+```
+
+
+The size of the model will be:
+- one decision variable for every position a player under consideration is _eligible_ for, for _every stat_.  If a player has multi-position eligibility we simply create as many decision variables as positions.
+
+- one decision variable for every player that contains the expected _price_ of the player (using an ADP model)
+
+- one decision variable for every player that contains the price paid of the player
+
+```{r}
+
+unq_player_pos <- player_pos %>% unique()
+d_team_dummy <- paste0(unq_player_pos, '_discontin')
+d_multipos_dummy <- paste0(multipos_players$mlbid, '_discontin')
+d_pos_dummy <- paste0(roster_names, '_discontin')
+expected_price <- paste0(player_univ$mlbid, '_exp_price')
+auction_price <- paste0(player_univ$mlbid, 'auction_price')
+#final_vars <- c(player_pos, d_team_dummy, expected_price, auction_price)
+final_vars <- c(player_pos, d_team_dummy, d_multipos_dummy, d_pos_dummy)
+
+best <- make.lp(0,  length(final_vars), verbose = 'detailed')
+
+best
+
+```
+
+Add constraints
+
+First add the player constraints.
+Players can only play at positions for which they are eligibile (enforced by how we created our decision variables above).
+
+Players must play one position.  That means that the 5 stats need to travel as a group.  We create this as a discontinuous variable in lpsolve.
+
+THIS WAS HARD
+cribbing off of
+https://stackoverflow.com/questions/40900940/linear-programming-with-conditional-constraints-in-r
+
+I believe if I create a constraint that has:
+- 1s in the columns that represent the player's 5 stats
+- a -1 in the column that is the dummy decision variable that tracks the 5 stats
+- a lower bound of 5 (or 4.9 from the example?)
+
+it will force the 5 stats to travel together.  somehow.
+
+Update: This needs to iterate over every _player position_ because you can only play, say, Kyle Schwarber at C *or* at OF.  You can't play a smattering of both C and OF.
+We will _also_ need to create a second layer constraint for multi-position eligibility players, so that only one Kyle Schwarber is used by the algorithm.  This stuff is subtly complicated!
+
+```{r}
+
+for (i in seq(1:length(unq_player_pos))) {
+  this_id <- gsub("(\\d+)([[:punct:]]+)([[:alnum:]]+)", "\\1", unq_player_pos[i])
+  this_player_pos <- unq_player_pos[i]
+  player_df <- player_univ[player_univ$mlbid == this_id, ]
+  this_player <- player_df$fullname
+  print(this_player)
+  
+  #find player indices
+  player_indices <- which(player_pos %in% this_player_pos)
+  #find player discontinuity dummy
+  p_discontin_index <- which(final_vars == paste0(this_player_pos, '_discontin'))
+
+  add.constraint(
+    lprec = best, 
+    xt = c(rep(1, length(player_indices)), -1),
+    type = ">=",
+    rhs = 5,
+    indices = c(player_indices, p_discontin_index)
+  ) 
+}
+
+best
+```
+
+SECOND LAYER CONSTRAINTS FOR PLAYERS WITH MULTIELIG 
+
+```{r}
+
+for (i in 1:nrow(multipos_players)) {
+  player_df <- multipos_players[i, ]
+  print(player_df$fullname)
+  
+  #find player indices
+  player_indices <- which(player_only %in% player_df$mlbid)
+  #find player discontinuity dummy
+  p_discontin_index <- which(final_vars == paste0(player_df$mlbid, '_discontin'))
+
+  add.constraint(
+    lprec = best, 
+    xt = c(rep(1, length(player_indices)), -1),
+    type = ">=",
+    rhs = 5,
+    indices = c(player_indices, p_discontin_index)
+  )
+}
+
+best
+
+```
+
+ADD POSITION CONSTRAINTS
+
+```{r}
+
+for (i in 1:length(roster_names)) {
+  this_roster <- roster_names[i]
+  print(this_roster)
+  
+  #find position indices
+  pos_indices <- which(pos_only %in% this_roster)
+  #find player discontinuity dummy
+  pos_discon_index <- which(final_vars == paste0(this_roster, '_discontin'))
+  all_pos_indices <- c(pos_indices, pos_discon_index)
+  print(all_pos_indices)
+  
+  add.constraint(
+    lprec = best, 
+    xt = c(rep(1, length(pos_indices)), -1),
+    type = ">=",
+    rhs = 5,
+    indices = all_pos_indices
+  )
+}
+
+best
+```
+
+
+Next add price constraints
+
+```{r}
+
+
+```
+
+Next add expected price constraints
+
+```{r}
+
+
+```
+
+
+The objective function will be the value of the players at each of the positions plus dummies for price/expected price.
+
+```{r}
+
+player_stat_zscore <- function(playerid, stat) {
+  df <- player_univ %>%
+    filter(mlbid == playerid)
+  
+  df %>% extract2(paste0(stat, '_zscore'))
+}
+
+player_stat_value <- map(
+  player_pos_stat,
+  function(.x) {
+    player <- gsub("(\\d+)([[:punct:]]+)([[:alnum:]]+)(.+)", "\\1", .x)
+    stat <- gsub("(\\d+)([[:punct:]]+)([[:alnum:]]+)([[:punct:]]+)(.+)", "\\5", .x)
+    player_stat_zscore(player, stat)
+  }
+) %>%
+reduce(c)
+
+```
+
+For price and expected price, the objective function is zero, because we aren't trying to maximize on those - they simply constrain our solution.
+
+Add zeros:
+
+```{r}
+
+# final_obj <- c(
+#   player_stat_value, 
+#   rep(0, length(expected_price)),
+#   rep(0, length(auction_price))
+# )
+
+final_obj <- c(
+  player_stat_value,
+  #all the various discon constraints
+  rep(0, length(final_vars) - length(player_stat_value))
+)
+
+```
+
+Set the objective function
+
+```{r}
+
+set.objfn(best, final_obj)
+
+best
+
+```
+
+
+Player stats are either yes/no (1/0) so we set to binary.
+We want to maximize value
+
+Set the bounds for all discon variables
+
+
+```{r}
+
+all_discon_indices <- which(grepl('_discon', final_vars))
+set.semicont(best, col = all_discon_indices)
+set.bounds(best, upper = rep(5, length(all_discon_indices)), col = all_discon_indices)
+
+```
+
+
+```{r}
+
+set.type(best, col = seq(1:length(player_stat_value)), type = "binary") 
+
+lp.control(best, sense="max")
+
+best
+write.lp(best, "best.lp", "lp") 
+write.lp(best, "best.mps", "mps")
+```
+
+```{r}
+
+solve(best)
+total_value <- get.objective(best)
+
+optimal <- get.variables(best)
+
+total_value
+optimal
+```
+
+Interpret the result
+
+```{r}
+
+pos_only[optimal == 1] %>% table()
+
+player_only[optimal == 1] %>% table()
+
+```
+
+
+```{r eval = FALSE}
+
+
+optimal_players <- player_pos_stat[optimal == 1]
+optimal_players
+
+```
+
+add in names
+
+```{r eval = FALSE}
+
+#gsub('(.)_(.)', optimal_players, value = TRUE)
+
+just_players <- map_chr(
+  strsplit(optimal_players, '_'), 
+  function(.x) .x %>% extract2(1)
+)
+
+just_pos <- map_chr(
+  strsplit(optimal_players, '_'), 
+  function(.x) .x %>% extract2(2)
+)
+
+player_univ[player_univ$mlbid %in% just_players, ]$fullname
+
+```

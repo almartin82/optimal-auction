@@ -15,8 +15,8 @@ for (i in seq_along(proj_files)) {
 
 
 #devtools::load_all(pkg = file.path('..', 'projprep'))
-library(devtools)
-devtools::install_github('almartin82/projprep')
+#library(devtools)
+#devtools::install_github('almartin82/projprep')
 library(projprep)
 
 perc_rank <- function(x, xo)  length(x[x <= xo])/length(x)*100

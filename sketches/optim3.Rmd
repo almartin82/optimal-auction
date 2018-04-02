@@ -30,9 +30,6 @@ roster_names <- c("C", "1B", "2B")
 num_roster <- 3
 num_stat <- 5
 
-best <- make.lp(0,  num_players * num_roster * num_stat)
-
-best
 
 ```
 
@@ -65,6 +62,16 @@ pos_vars
 
 full_vars <- paste(player_vars, stat_vars, pos_vars, sep = '_')
 full_vars
+
+```
+
+Make the model
+
+```{r}
+
+best <- make.lp(0,  num_players * num_roster * num_stat)
+
+best
 
 ```
 
