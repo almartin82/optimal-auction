@@ -13,9 +13,11 @@ editor_options:
 source `constants.R` and `data.R` functions to get proj system data into memory:
 
 ```{r}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
 
-source(file = 'constants.R')
-source(file = 'data.R')
+source(file = file.path(root, 'constants.R'))
+source(file = file.path(root, 'data.R'))
 
 ```
 
@@ -34,19 +36,19 @@ Instead of generating the model right up front, like I did in 2 and 3, do it lat
 
 player_univ <- all_proj$steam$h_final %>%
   arrange(-final_zsum) %>%
-  dplyr::top_n(657, wt = final_zsum) 
+  dplyr::top_n(300, wt = final_zsum) 
   
 # player_univ <- all_proj$steam$h_final %>% 
 #   filter(mlbid %in% c(545361, 514888, 467793, 518692))
 
 num_players <- nrow(player_univ)
 # roster_names <- c("C", "1B", "2B", "SS", "3B", "OF", "OF", "OF")
-# num_roster <- 8
+# num_unq_roster <- 8
 
 roster_names <- c("C", "1B", "2B", "SS", "3B", "OF")
-num_roster <- 6
+num_unq_roster <- 6
 #roster_names <- c("OF", "1B", "2B")
-#num_roster <- 3
+#num_unq_roster <- 3
 
 num_stat <- 5
 stat_names <- c('r', 'rbi', 'sb', 'tb', 'obp')

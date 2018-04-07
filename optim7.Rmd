@@ -1,0 +1,71 @@
+---
+title: "optim7"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+function-ify the flow in `optim6.rmd`.  Include expected price constraint and available cash.
+
+```{r}
+library(rprojroot)
+root <- rprojroot::find_rstudio_root_file()
+library(tidyverse)
+library(lpSolveAPI)
+```
+
+```{r}
+
+source(file = file.path(root, 'constants.R'))
+source(file = file.path(root, 'data.R'))
+source(file = file.path(root, 'optim.R'))
+source(file = file.path(root, 'override.R'))
+
+```
+
+```{r}
+
+pp <- all_proj$steam
+ex <- optimize_h_auction(pp, universe_depth = 25)
+
+ex
+```
+
+```{r eval = FALSE}
+
+pp <- all_proj$steam
+ex <- optimize_h_auction(
+  pp, 
+  roster_positions = c('C', '1B', 'OF'), 
+  stat_names =  c('r', 'rbi', 'sb', 'tb', 'obp'),
+  universe_depth = 20
+)
+
+ex
+```
+
+
+```{r eval = FALSE}
+
+adp <- projprep::espn_adp()
+
+```
+
+```{r eval = FALSE}
+
+projprep <- all_proj$steam
+roster_positions <- c('C', '1B', '2B', 'SS', '3B', 'OF')
+stat_names <-  c('r', 'rbi', 'sb', 'tb', 'obp')
+universe_depth <- 15
+
+```
+
+
+```{r eval = FALSE}
+
+projprep <- all_proj$steam
+roster_positions <- c('1B', '2B', 'OF')
+stat_names <- c('r', 'rbi', 'sb', 'tb', 'obp')
+universe_depth <- 4
+
+```
