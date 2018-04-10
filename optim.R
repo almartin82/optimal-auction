@@ -66,8 +66,9 @@ optimize_h_auction <- function(
   p_discon_dummy <- paste0(unq_player_pos, '_play_cstrt')
   p_multipos_dummy <- paste0(multipos_players$mlbid, '_multipos_cstrt')
   b_player_dummy <- paste0(player_univ$mlbid, '_binary_player_cstrt')
+  inv_b_player_dummy <- paste0(player_univ$mlbid, '_inv_binary_player_cstrt')
   
-  #expected_price <- paste0(player_univ$mlbid, '_exp_price')
+  expected_price <- paste0(player_univ$mlbid, '_exp_price')
   auction_price <- paste0(player_univ$mlbid, '_auction_price')
   b_price_dummy <- paste0(player_univ$mlbid, '_binary_auction_cstrt')
 
@@ -76,8 +77,10 @@ optimize_h_auction <- function(
       #the real decision variables
       player_pos, 
       #shadow player variables enforcing constraints
-      p_discon_dummy, p_multipos_dummy, b_player_dummy, 
+      p_discon_dummy, p_multipos_dummy, 
+      b_player_dummy, inv_b_player_dummy,
       #price
+      expected_price,
       auction_price,
       #shadow price contraints
       b_price_dummy
@@ -87,6 +90,9 @@ optimize_h_auction <- function(
       rep('player_pos_discon_dummy', length(p_discon_dummy)),
       rep('player_multipos_discon_dummy', length(p_multipos_dummy)),
       rep('binary_player_dummy', length(b_player_dummy)),
+      rep('inverse_binary_player_dummy', length(inv_b_player_dummy)),
+      
+      rep('expected_price', length(expected_price)),
       rep('auction_price', length(auction_price)),
       rep('binary_price_dummy', length(b_price_dummy))
     )
@@ -195,6 +201,30 @@ optimize_h_auction <- function(
     )
   }
   
+  #create an inverse version of binary drafted
+  for (i in 1:length(inv_b_player_dummy)) {
+    this_mlbid <- gsub(
+      "(\\d+)([[:punct:]]+)(.+)",
+      "\\1",
+      inv_b_player_dummy[i]
+    )
+    
+    b_dummy <- metadata %>% 
+      filter(mlbid == this_mlbid & 
+               var_type == 'binary_player_dummy'
+      ) %>%
+      pull(row_number)
+    inv_b_dummy <- which(final_vars %in% inv_b_player_dummy[i])
+    
+    add.constraint(
+      lprec = best,
+      xt = c(1, 1),
+      type = '=',
+      rhs = 1,
+      indices = c(b_dummy, inv_b_dummy)
+    )
+  }
+  
   #then create a binary for auction greater than zero
   for (i in 1:length(b_price_dummy)) {
     this_mlbid <- gsub(
@@ -244,6 +274,58 @@ optimize_h_auction <- function(
       indices = c(binary_player_index, binary_price_index)
     )
   }  
+  
+  #set expected price constraint
+  for (i in 1:length(expected_price)) {
+    this_mlbid <- gsub(
+      "(\\d+)([[:punct:]]+)(.+)",
+      "\\1",
+      expected_price[i]
+    )
+    expected_price_value <- expected_prices %>%
+      filter(mlbid == this_mlbid) %>%
+      pull(expected_price)
+    expected_index <- which(final_vars %in% expected_price[i])
+    
+    add.constraint(
+      lprec = best,
+      xt = c(1),
+      type = "=",
+      rhs = expected_price_value,
+      indices = c(expected_index)
+    )
+  }
+  
+  #actual price must be more than expectation
+  for (i in 1:length(auction_price)) {
+    this_mlbid <- gsub(
+      "(\\d+)([[:punct:]]+)(.+)",
+      "\\1",
+      auction_price[i]
+    )
+    
+    inv_dummy_index <- metadata %>% 
+      filter(mlbid == this_mlbid & 
+               var_type == 'inverse_binary_player_dummy'
+      ) %>%
+      pull(row_number)
+    
+    expected_index <- metadata %>% 
+      filter(mlbid == this_mlbid & 
+               var_type == 'expected_price'
+      ) %>%
+      pull(row_number)
+    price_index <- which(final_vars %in% auction_price[i])
+    
+    add.constraint(
+      lprec = best,
+      xt = c(-270, 1, -1),
+      type = "<=",
+      rhs = 50,
+      indices = c(inv_dummy_index, expected_index, price_index)
+    )
+  }
+  
   
   #get data for objective function
   player_stat_zscore <- function(playerid, stat) {
@@ -320,7 +402,10 @@ optimize_h_auction <- function(
   p_discon_dummies <- decision_vars[which(final_vars %in% p_discon_dummy)]
   
   b_player_dummies <- decision_vars[which(final_vars %in% b_player_dummy)]
+  inv_b_player_dummies <- decision_vars[which(final_vars %in% inv_b_player_dummy)]
+
   price_vars <- decision_vars[which(final_vars %in% auction_price)]
+  expected_price_vars <- decision_vars[which(final_vars %in% expected_price)]
   b_price_dummies <- decision_vars[which(final_vars %in% b_price_dummy)]
   
   optimal_players <- player_pos_stat[optimal == 1]
@@ -359,8 +444,10 @@ optimize_h_auction <- function(
       player = player_dummies,
       player_discon = p_discon_dummies,
       binary_player = b_player_dummies,
+      inv_binary_player = inv_b_player_dummies,
       binary_prices = b_price_dummies,
-      prices = price_vars
+      prices = price_vars,
+      expected_prices = expected_price_vars
     )
   )
 }
